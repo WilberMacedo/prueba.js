@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  </head>
+  <body>
+	  
+	  <div class="container">
+	  <h1>Prueba js</h1>
+	<div class="jumbotron h2" id="pregunta"></div>
+	<div id="respuestas"></div>
+
+<input class="btn btn-success" type="button" value="Comprobar respuesta" onclick="comprobar()">
+	<script>
+		var preguntas = [
+		"¿Quien descubrió América?",
+		"¿Quién es el actual presidente de México?",
+		"¿Donde se encuentra México?"
+
+		];
+		var respuestas = [
+		["Cristobal Colón", "Vicente Fox", "Nikola Tesla"],
+		["Enrique Peña Nieto", "Isabel la Catolica", "Baruch Spinoza"],
+		["Norteamérica", "Sudamérica", "Asia Menor"]
+
+		];
+jugar();
+
+		var indice_respuesta_correcta;
+
+function jugar(){
+			var indice_aleatorio = Math.floor(Math.random()*preguntas.length);
+
+
+		var respuestas_posibles = respuestas[indice_aleatorio];
+
+
+		var positions = [0,1,2];
+		var respuestas_reordenadas = [];
+
+		var no_repeat = false;
+		for(i in respuestas_posibles){
+			var posicion_aleatoria = Math.floor(Math.random()*positions.length);
+			if(posicion_aleatoria==0 && no_repeat == false){
+				indice_respuesta_correcta =i;
+				no_repeat = true;
+			}
+			respuestas_reordenadas[i] = respuestas_posibles[positions[posicion_aleatoria]];
+			positions.splice(posicion_aleatoria, 1);
+		}
+
+		var txt_respuestas="";
+		for(i in respuestas_reordenadas){
+			txt_respuestas += '<input type="radio" name="pp" value="'+i+'"><label>'+respuestas_reordenadas[i]+'</label><br>';
+		}
+
+		document.getElementById("respuestas").innerHTML = txt_respuestas;
+		document.getElementById("pregunta").innerHTML = preguntas[indice_aleatorio];
+
+}
+function comprobar(){
+	var respuesta = $("input[type=radio]:checked").val();
+
+
+	if(respuesta ==indice_respuesta_correcta){
+		alert("¡Acertaste!");
+	}else{
+		alert("Incorrecto");
+	}
+	jugar();
+}
+	</script>
+		  
+		  
+	  </div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </body>
+</html>
